@@ -1,3 +1,3 @@
-module ppmasa8/rbarray
+module github.com/ppmasa8/rbarray
 
 go 1.19
