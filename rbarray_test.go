@@ -12,13 +12,13 @@ func TestArray_Pop(t *testing.T) {
 		expected interface{}
 	}{
 		{
-			name:     "Pop int from intVals",
-			array:    Array{intVals: intArray{1, 2, 3}},
+			name:     "Pop int from IntVals",
+			array:    Array{IntVals: IntArray{1, 2, 3}},
 			expected: 3,
 		},
 		{
-			name:     "Pop string from strVals",
-			array:    Array{strVals: strArray{"foo", "bar", "baz"}},
+			name:     "Pop string from StrVals",
+			array:    Array{StrVals: StrArray{"foo", "bar", "baz"}},
 			expected: "baz",
 		},
 		{

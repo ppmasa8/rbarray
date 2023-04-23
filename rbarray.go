@@ -2,25 +2,25 @@ package rbarray
 
 import "log"
 
-type intArray []int
-type strArray []string
+type IntArray []int
+type StrArray []string
 
 type Array struct {
-	intVals intArray
-	strVals strArray
+	IntVals IntArray
+	StrVals StrArray
 }
 
 func (a *Array) Pop() interface{} {
-	if len(a.intVals) > 0 {
-		slice := a.intVals
+	if len(a.IntVals) > 0 {
+		slice := a.IntVals
 		last := slice[len(slice)-1]
-		a.intVals = slice[:len(slice)-1]
+		a.IntVals = slice[:len(slice)-1]
 		return last
 	}
-	if len(a.strVals) > 0 {
-		slice := a.strVals
+	if len(a.StrVals) > 0 {
+		slice := a.StrVals
 		last := slice[len(slice)-1]
-		a.strVals = slice[:len(slice)-1]
+		a.StrVals = slice[:len(slice)-1]
 		return last
 	}
 	log.Println("Array is empty")
