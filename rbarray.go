@@ -10,6 +10,8 @@ type Array struct {
 	StrVals StrArray
 }
 
+// instance method Array#pop
+// pop -> object | nil
 func (a *Array) Pop() interface{} {
 	if len(a.IntVals) > 0 {
 		slice := a.IntVals
