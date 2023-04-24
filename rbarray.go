@@ -28,3 +28,22 @@ func (a *Array) Pop() interface{} {
 	log.Println("Array is empty")
 	return nil
 }
+
+// instance method Array#shift
+// shift -> object | nil
+func (a *Array) Shift() interface{} {
+	if len(a.IntVals) > 0 {
+		slice := a.IntVals
+		first := slice[0]
+		a.IntVals = slice[1:]
+		return first
+	}
+	if len(a.StrVals) > 0 {
+		slice := a.StrVals
+		first := slice[0]
+		a.StrVals = slice[1:]
+		return first
+	}
+	log.Println("Array is empty")
+	return nil
+}
