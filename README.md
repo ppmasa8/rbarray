@@ -3,7 +3,7 @@ It can handle arrays like ruby.
 
 # Install
 ```zsh
-$ go install github.com/ppmasa8/rbarr@v0.1.1
+$ go install github.com/ppmasa8/rbarr@v0.2.0
 ```
 
 # Usage
@@ -19,7 +19,7 @@ func main() {
         fmt.Println("Hello, 世界")
         array := rbarray.Array{IntVals: rbarray.IntArray{1, 3, 5}}
         fmt.Println(array.Pop())
-        
+
 // output
 // Hello, 世界
 // 5
