@@ -47,3 +47,16 @@ func (a *Array) Shift() interface{} {
 	log.Println("Array is empty")
 	return nil
 }
+
+// instance method Array#push
+// push(*obj) -> self
+func (a *Array) Push(obj interface{}) {
+	switch obj.(type) {
+	case int:
+		a.IntVals = append(a.IntVals, obj.(int))
+	case string:
+		a.StrVals = append(a.StrVals, obj.(string))
+	default:
+		log.Println("Invalid type")
+	}
+}
