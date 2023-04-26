@@ -1,6 +1,8 @@
 package rbarray
 
-import "log"
+import (
+	"fmt"
+)
 
 type IntArray []int
 type StrArray []string
@@ -12,64 +14,64 @@ type Array struct {
 
 // instance method Array#pop
 // pop -> object | nil
-func (a *Array) Pop() interface{} {
+func (a *Array) Pop() (interface{}, error) {
 	if len(a.IntVals) > 0 {
 		slice := a.IntVals
 		last := slice[len(slice)-1]
 		a.IntVals = slice[:len(slice)-1]
-		return last
+		return last, nil
 	}
 	if len(a.StrVals) > 0 {
 		slice := a.StrVals
 		last := slice[len(slice)-1]
 		a.StrVals = slice[:len(slice)-1]
-		return last
+		return last, nil
 	}
-	log.Println("Array is empty")
-	return nil
+	return nil, fmt.Errorf("Array is empty")
 }
 
 // instance method Array#shift
 // shift -> object | nil
-func (a *Array) Shift() interface{} {
+func (a *Array) Shift() (interface{}, error) {
 	if len(a.IntVals) > 0 {
 		slice := a.IntVals
 		first := slice[0]
 		a.IntVals = slice[1:]
-		return first
+		return first, nil
 	}
 	if len(a.StrVals) > 0 {
 		slice := a.StrVals
 		first := slice[0]
 		a.StrVals = slice[1:]
-		return first
+		return first, nil
 	}
-	log.Println("Array is empty")
-	return nil
+	return nil, fmt.Errorf("Array is empty")
 }
 
 // instance method Array#push
 // push(*obj) -> self
-func (a *Array) Push(obj interface{}) {
-	switch obj.(type) {
+func (a *Array) Push(obj interface{}) error {
+	switch v := obj.(type) {
 	case int:
-		a.IntVals = append(a.IntVals, obj.(int))
+		a.IntVals = append(a.IntVals, v)
 	case string:
-		a.StrVals = append(a.StrVals, obj.(string))
+		a.StrVals = append(a.StrVals, v)
 	default:
-		log.Println("Invalid type")
+		return fmt.Errorf("Invalid type: %T", obj)
 	}
+	return nil
 }
 
 // instance method Array#unshift
 // unshift(*obj) -> self
-func (a *Array) Unshift(obj interface{}) {
-	switch obj.(type) {
+func (a *Array) Unshift(obj interface{}) error {
+	switch v := obj.(type) {
 	case int:
-		a.IntVals = append(IntArray{obj.(int)}, a.IntVals...)
+		a.IntVals = append(IntArray{v}, a.IntVals...)
 	case string:
-		a.StrVals = append(StrArray{obj.(string)}, a.StrVals...)
+		a.StrVals = append(StrArray{v}, a.StrVals...)
 	default:
-		log.Println("Invalid type")
+		return fmt.Errorf("Invalid type: %T", obj)
 	}
+	return nil
 }

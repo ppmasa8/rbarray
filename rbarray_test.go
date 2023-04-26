@@ -33,7 +33,10 @@ func TestArray_Pop(t *testing.T) {
 	}
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			got := test.array.Pop()
+			got, _ := test.array.Pop()
+			// if err != nil {
+			// 	t.Errorf("%v", err)
+			// }
 			if !reflect.DeepEqual(got, test.obj) {
 				t.Errorf("Expected %v but got %v", test.obj, got)
 			}
@@ -72,7 +75,10 @@ func TestArray_Shift(t *testing.T) {
 	}
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			got := test.array.Shift()
+			got, _ := test.array.Shift()
+			// if err != nil {
+			// 	t.Errorf("%v", err)
+			// }
 			if !reflect.DeepEqual(got, test.obj) {
 				t.Errorf("Expected %v but got %v", test.obj, got)
 			}
