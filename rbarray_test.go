@@ -118,3 +118,39 @@ func TestArray_Push(t *testing.T) {
 		})
 	}
 }
+
+func TestArray_Unshift(t *testing.T) {
+	tests := []struct {
+		name     string
+		array    Array
+		obj      interface{}
+		expected interface{}
+	}{
+		{
+			name:     "Push int to IntVals",
+			array:    Array{IntVals: IntArray{1, 2, 3}},
+			obj:      4,
+			expected: Array{IntVals: IntArray{1, 2, 3, 4}},
+		},
+		{
+			name:     "Push string to StrVals",
+			array:    Array{StrVals: StrArray{"foo", "bar", "baz"}},
+			obj:      "qux",
+			expected: Array{StrVals: StrArray{"foo", "bar", "baz", "qux"}},
+		},
+		{
+			name:     "Push invalid type",
+			array:    Array{},
+			obj:      4.0,
+			expected: Array{},
+		},
+	}
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			test.array.Push(test.obj)
+			if !reflect.DeepEqual(test.array, test.expected) {
+				t.Errorf("Expected %v but got %v", test.expected, test.array)
+			}
+		})
+	}
+}

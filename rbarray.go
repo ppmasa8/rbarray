@@ -60,3 +60,16 @@ func (a *Array) Push(obj interface{}) {
 		log.Println("Invalid type")
 	}
 }
+
+// instance method Array#unshift
+// unshift(*obj) -> self
+func (a *Array) Unshift(obj interface{}) {
+	switch obj.(type) {
+	case int:
+		a.IntVals = append(IntArray{obj.(int)}, a.IntVals...)
+	case string:
+		a.StrVals = append(StrArray{obj.(string)}, a.StrVals...)
+	default:
+		log.Println("Invalid type")
+	}
+}
