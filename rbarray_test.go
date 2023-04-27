@@ -160,3 +160,40 @@ func TestArray_Unshift(t *testing.T) {
 		})
 	}
 }
+
+func TestArray_Delete(t *testing.T) {
+	tests := []struct {
+		name     string
+		array    Array
+		obj      interface{}
+		expected interface{}
+	}{
+		{
+			name:     "Delete int from IntVals",
+			array:    Array{IntVals: IntArray{1, 2, 3}},
+			obj:      2,
+			expected: Array{IntVals: IntArray{1, 3}},
+		},
+		{
+			name:     "Delete string from StrVals",
+			array:    Array{StrVals: StrArray{"foo", "bar", "baz"}},
+			obj:      "bar",
+			expected: Array{StrVals: StrArray{"foo", "baz"}},
+		},
+		{
+			name:     "Delete invalid type",
+			array:    Array{},
+			obj:      4.0,
+			expected: Array{},
+		},
+	}
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			test.array.Delete(test.obj)
+			if !reflect.DeepEqual(test.array, test.expected) {
+				t.Errorf("Expected %v but got %v", test.expected, test.array)
+			}
+		})
+
+	}
+}

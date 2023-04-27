@@ -75,3 +75,25 @@ func (a *Array) Unshift(obj interface{}) error {
 	}
 	return nil
 }
+
+// instance method Array#delete
+// delete(val) { ... } -> object
+func (a *Array) Delete(val interface{}) interface{} {
+	switch v := val.(type) {
+	case int:
+		for i, n := range a.IntVals {
+			if n == v {
+				a.IntVals = append(a.IntVals[:i], a.IntVals[i+1:]...)
+				return n
+			}
+		}
+	case string:
+		for i, s := range a.StrVals {
+			if s == v {
+				a.StrVals = append(a.StrVals[:i], a.StrVals[i+1:]...)
+				return s
+			}
+		}
+	}
+	return nil
+}
