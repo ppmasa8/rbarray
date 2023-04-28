@@ -97,3 +97,25 @@ func (a *Array) Delete(val interface{}) (interface{}, error) {
 	}
 	return nil, fmt.Errorf("Value not found")
 }
+
+// instance method Array#uniq
+// uniq -> Array
+func (a *Array) Uniq() {
+	seen := make(map[interface{}]bool)
+	var uniqInts IntArray
+	var uniqStrs StrArray
+	for _, n := range a.IntVals {
+		if _, ok := seen[n]; !ok {
+			seen[n] = true
+			uniqInts = append(uniqInts, n)
+		}
+	}
+	for _, s := range a.StrVals {
+		if _, ok := seen[s]; !ok {
+			seen[s] = true
+			uniqStrs = append(uniqStrs, s)
+		}
+	}
+	a.IntVals = uniqInts
+	a.StrVals = uniqStrs
+}

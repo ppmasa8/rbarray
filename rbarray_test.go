@@ -197,3 +197,35 @@ func TestArray_Delete(t *testing.T) {
 
 	}
 }
+
+func TestArray_Uniq(t *testing.T) {
+	tests := []struct {
+		name     string
+		array    Array
+		expected Array
+	}{
+		{
+			name:     "Uniq int from IntVals",
+			array:    Array{IntVals: IntArray{1, 2, 3, 3, 4, 5, 5}},
+			expected: Array{IntVals: IntArray{1, 2, 3, 4, 5}},
+		},
+		{
+			name:     "Uniq string from StrVals",
+			array:    Array{StrVals: StrArray{"foo", "bar", "baz", "baz", "qux", "qux"}},
+			expected: Array{StrVals: StrArray{"foo", "bar", "baz", "qux"}},
+		},
+		{
+			name:     "Uniq invalid type",
+			array:    Array{},
+			expected: Array{},
+		},
+	}
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			test.array.Uniq()
+			if !reflect.DeepEqual(test.array, test.expected) {
+				t.Errorf("Expected %v but got %v", test.expected, test.array)
+			}
+		})
+	}
+}
