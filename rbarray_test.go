@@ -229,3 +229,31 @@ func TestArray_Uniq(t *testing.T) {
 		})
 	}
 }
+
+func TestArray_Sum(t *testing.T) {
+	tests := []struct {
+		name     string
+		array    Array
+		expected int
+	}{
+		{
+			name:     "Sum int from IntVals",
+			array:    Array{IntVals: IntArray{1, 2, 3, 3, 4, 5, 5}},
+			expected: 23,
+		},
+		{
+			name:     "Sum empty int from IntVals",
+			array:    Array{},
+			expected: 0,
+		},
+	}
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			sum := test.array.Sum()
+			if sum != test.expected {
+				t.Errorf("Expected %v but got %v", test.expected, sum)
+			}
+		})
+
+	}
+}

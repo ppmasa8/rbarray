@@ -119,3 +119,14 @@ func (a *Array) Uniq() {
 	a.IntVals = uniqInts
 	a.StrVals = uniqStrs
 }
+
+// Only works for IntArray
+// instance method Enumerable#sum
+// sum() -> object
+func (a *Array) Sum() int {
+	var sum int
+	for _, n := range a.IntVals {
+		sum += n
+	}
+	return sum
+}
