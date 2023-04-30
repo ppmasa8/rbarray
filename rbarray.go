@@ -134,25 +134,31 @@ func (a *Array) Sum() int {
 // Only works for IntArray
 // instance method Enumerable#max
 // max() -> object
-func (a *Array) Max() int {
-	max := a.IntVals[0]
+func (a *Array) Max() (int, error) {
+	if len(a.IntVals) == 0 {
+		return 0, fmt.Errorf("IntArray is empty")
+	}
+	max := -int(^uint(0) >> 1) - 1
 	for _, n := range a.IntVals {
 		if n > max {
 			max = n
 		}
 	}
-	return max
+	return max, nil
 }
 
 // Only works for IntArray
 // instance method Enumerable#min
 // min() -> object
-func (a *Array) Min() int {
-	min := a.IntVals[0]
+func (a *Array) Min() (int, error) {
+	if len(a.IntVals) == 0 {
+		return 0, fmt.Errorf("IntArray is empty")
+	}
+	min := int(^uint(0) >> 1)
 	for _, n := range a.IntVals {
 		if n < min {
 			min = n
 		}
 	}
-	return min
+	return min, nil
 }
