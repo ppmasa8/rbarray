@@ -13,7 +13,7 @@ type Array struct {
 }
 
 // instance method Array#pop
-// pop() -> object | nil
+// pop() -> object | error
 func (a *Array) Pop() (interface{}, error) {
 	if len(a.IntVals) > 0 {
 		slice := a.IntVals
@@ -31,7 +31,7 @@ func (a *Array) Pop() (interface{}, error) {
 }
 
 // instance method Array#shift
-// shift() -> object | nil
+// shift() -> object | error
 func (a *Array) Shift() (interface{}, error) {
 	if len(a.IntVals) > 0 {
 		slice := a.IntVals
@@ -49,7 +49,7 @@ func (a *Array) Shift() (interface{}, error) {
 }
 
 // instance method Array#push
-// push(*obj) -> self
+// push(*obj) -> self | error
 func (a *Array) Push(obj interface{}) (interface{}, error) {
 	switch v := obj.(type) {
 	case int:
@@ -63,7 +63,7 @@ func (a *Array) Push(obj interface{}) (interface{}, error) {
 }
 
 // instance method Array#unshift
-// unshift(*obj) -> self
+// unshift(*obj) -> self | error
 func (a *Array) Unshift(obj interface{}) (interface{}, error) {
 	switch v := obj.(type) {
 	case int:
@@ -77,7 +77,7 @@ func (a *Array) Unshift(obj interface{}) (interface{}, error) {
 }
 
 // instance method Array#delete
-// delete(val) { ... } -> object
+// delete(val) { ... } -> object | error
 func (a *Array) Delete(obj interface{}) (interface{}, error) {
 	switch v := obj.(type) {
 	case int:
@@ -123,7 +123,7 @@ func (a *Array) Uniq() interface{} {
 
 // Only works for IntArray
 // instance method Enumerable#sum
-// sum() -> object
+// sum() -> object | error
 func (a *Array) Sum() (interface{}, error) {
 	if len(a.IntVals) == 0 {
 		return nil, fmt.Errorf("cannot sum empty IntArray")
@@ -137,7 +137,7 @@ func (a *Array) Sum() (interface{}, error) {
 
 // Only works for IntArray
 // instance method Enumerable#max
-// max() -> object
+// max() -> object | error
 func (a *Array) Max() (interface{}, error) {
 	if len(a.IntVals) == 0 {
 		return nil, fmt.Errorf("cannot max empty IntArray")
@@ -153,7 +153,7 @@ func (a *Array) Max() (interface{}, error) {
 
 // Only works for IntArray
 // instance method Enumerable#min
-// min() -> object
+// min() -> object | error
 func (a *Array) Min() (interface{}, error) {
 	if len(a.IntVals) == 0 {
 		return nil, fmt.Errorf("cannot min empty IntArray")
