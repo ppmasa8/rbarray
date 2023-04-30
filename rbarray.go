@@ -50,32 +50,30 @@ func (a *Array) Shift() (interface{}, error) {
 
 // instance method Array#push
 // push(*obj) -> self
-// TODO Return argument #1 is self array.
-func (a *Array) Push(obj interface{}) error {
+func (a *Array) Push(obj interface{}) (interface{}, error) {
 	switch v := obj.(type) {
 	case int:
 		a.IntVals = append(a.IntVals, v)
 	case string:
 		a.StrVals = append(a.StrVals, v)
 	default:
-		return fmt.Errorf("invalid type: %T", obj)
+		return *a, fmt.Errorf("invalid type: %T", obj)
 	}
-	return nil
+	return *a, nil
 }
 
 // instance method Array#unshift
 // unshift(*obj) -> self
-// TODO Return argument #1 is self array.
-func (a *Array) Unshift(obj interface{}) error {
+func (a *Array) Unshift(obj interface{}) (interface{}, error) {
 	switch v := obj.(type) {
 	case int:
 		a.IntVals = append(IntArray{v}, a.IntVals...)
 	case string:
 		a.StrVals = append(StrArray{v}, a.StrVals...)
 	default:
-		return fmt.Errorf("invalid type: %T", obj)
+		return *a, fmt.Errorf("invalid type: %T", obj)
 	}
-	return nil
+	return *a, nil
 }
 
 // instance method Array#delete

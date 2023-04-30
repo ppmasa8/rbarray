@@ -130,9 +130,12 @@ func TestArray_Push(t *testing.T) {
 	}
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			err := test.array.Push(test.obj)
+			got, err := test.array.Push(test.obj)
 			if !reflect.DeepEqual(test.array, test.expected) {
 				t.Errorf("Expected %v but got %v", test.expected, test.array)
+			}
+			if !reflect.DeepEqual(got, test.expected) {
+				t.Errorf("Expected %v but got %v", test.expected, got)
 			}
 			if err != nil && err.Error() != test.err.Error() {
 				t.Errorf("Expected %v but got %v", test.err, err)
@@ -173,9 +176,12 @@ func TestArray_Unshift(t *testing.T) {
 	}
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			err := test.array.Unshift(test.obj)
+			got, err := test.array.Unshift(test.obj)
 			if !reflect.DeepEqual(test.array, test.expected) {
 				t.Errorf("Expected %v but got %v", test.expected, test.array)
+			}
+			if !reflect.DeepEqual(got, test.expected) {
+				t.Errorf("Expected %v but got %v", test.expected, got)
 			}
 			if err != nil && err.Error() != test.err.Error() {
 				t.Errorf("Expected %v but got %v", test.err, err)
