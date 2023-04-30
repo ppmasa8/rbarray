@@ -135,7 +135,7 @@ func (a *Array) Sum() int {
 // instance method Enumerable#max
 // max() -> object
 func (a *Array) Max() int {
-	var max int
+	max := a.IntVals[0]
 	for _, n := range a.IntVals {
 		if n > max {
 			max = n
@@ -148,7 +148,7 @@ func (a *Array) Max() int {
 // instance method Enumerable#min
 // min() -> object
 func (a *Array) Min() int {
-	var min int
+	min := a.IntVals[0]
 	for _, n := range a.IntVals {
 		if n < min {
 			min = n
