@@ -257,9 +257,12 @@ func TestArray_Uniq(t *testing.T) {
 	}
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			test.array.Uniq()
+			got := test.array.Uniq()
 			if !reflect.DeepEqual(test.array, test.expected) {
 				t.Errorf("Expected %v but got %v", test.expected, test.array)
+			}
+			if !reflect.DeepEqual(got, test.expected) {
+				t.Errorf("Expected %v but got %v", test.expected, got)
 			}
 		})
 	}

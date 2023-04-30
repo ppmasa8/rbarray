@@ -100,7 +100,7 @@ func (a *Array) Delete(obj interface{}) (interface{}, error) {
 
 // instance method Array#uniq
 // uniq() -> Array
-func (a *Array) Uniq() {
+func (a *Array) Uniq() interface{} {
 	seen := make(map[interface{}]bool)
 	var uniqInts IntArray
 	var uniqStrs StrArray
@@ -118,6 +118,7 @@ func (a *Array) Uniq() {
 	}
 	a.IntVals = uniqInts
 	a.StrVals = uniqStrs
+	return *a
 }
 
 // Only works for IntArray
