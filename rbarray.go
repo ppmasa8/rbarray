@@ -13,7 +13,7 @@ type Array struct {
 }
 
 // instance method Array#pop
-// pop -> object | nil
+// pop() -> object | nil
 func (a *Array) Pop() (interface{}, error) {
 	if len(a.IntVals) > 0 {
 		slice := a.IntVals
@@ -31,7 +31,7 @@ func (a *Array) Pop() (interface{}, error) {
 }
 
 // instance method Array#shift
-// shift -> object | nil
+// shift() -> object | nil
 func (a *Array) Shift() (interface{}, error) {
 	if len(a.IntVals) > 0 {
 		slice := a.IntVals
@@ -99,7 +99,7 @@ func (a *Array) Delete(val interface{}) (interface{}, error) {
 }
 
 // instance method Array#uniq
-// uniq -> Array
+// uniq() -> Array
 func (a *Array) Uniq() {
 	seen := make(map[interface{}]bool)
 	var uniqInts IntArray
@@ -129,4 +129,30 @@ func (a *Array) Sum() int {
 		sum += n
 	}
 	return sum
+}
+
+// Only works for IntArray
+// instance method Enumerable#max
+// max() -> object
+func (a *Array) Max() int {
+	var max int
+	for _, n := range a.IntVals {
+		if n > max {
+			max = n
+		}
+	}
+	return max
+}
+
+// Only works for IntArray
+// instance method Enumerable#min
+// min() -> object
+func (a *Array) Min() int {
+	var min int
+	for _, n := range a.IntVals {
+		if n < min {
+			min = n
+		}
+	}
+	return min
 }

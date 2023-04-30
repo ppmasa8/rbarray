@@ -194,7 +194,6 @@ func TestArray_Delete(t *testing.T) {
 				t.Errorf("Expected %v but got %v", test.expected, test.array)
 			}
 		})
-
 	}
 }
 
@@ -246,6 +245,11 @@ func TestArray_Sum(t *testing.T) {
 			array:    Array{},
 			expected: 0,
 		},
+		{
+			name:     "Sum string from StrVals",
+			array:    Array{StrVals: StrArray{"foo", "bar", "baz", "baz", "qux", "qux"}},
+			expected: 0,
+		},
 	}
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
@@ -254,6 +258,69 @@ func TestArray_Sum(t *testing.T) {
 				t.Errorf("Expected %v but got %v", test.expected, sum)
 			}
 		})
+	}
+}
 
+func TestArray_Max(t *testing.T) {
+	tests := []struct {
+		name     string
+		array    Array
+		expected int
+	}{
+		{
+			name:     "Max int from IntVals",
+			array:    Array{IntVals: IntArray{1, 2, 3, 3, 4, 5, 5}},
+			expected: 5,
+		},
+		{
+			name:     "Max empty int from IntVals",
+			array:    Array{},
+			expected: 0,
+		},
+		{
+			name:     "Max string from StrVals",
+			array:    Array{StrVals: StrArray{"foo", "bar", "baz", "baz", "qux", "qux"}},
+			expected: 0,
+		},
+	}
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			max := test.array.Max()
+			if max != test.expected {
+				t.Errorf("Expected %v but got %v", test.expected, max)
+			}
+		})
+	}
+}
+
+func TestArray_Min(t *testing.T) {
+	tests := []struct {
+		name     string
+		array    Array
+		expected int
+	}{
+		{
+			name:     "Min int from IntVals",
+			array:    Array{IntVals: IntArray{1, 2, 3, 3, 4, 5, 5}},
+			expected: 1,
+		},
+		{
+			name:     "Min empty int from IntVals",
+			array:    Array{},
+			expected: 0,
+		},
+		{
+			name:     "Min string from StrVals",
+			array:    Array{StrVals: StrArray{"foo", "bar", "baz", "baz", "qux", "qux"}},
+			expected: 0,
+		},
+	}
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			min := test.array.Min()
+			if min != test.expected {
+				t.Errorf("Expected %v but got %v", test.expected, min)
+			}
+		})
 	}
 }
