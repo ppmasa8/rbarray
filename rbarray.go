@@ -50,6 +50,7 @@ func (a *Array) Shift() (interface{}, error) {
 
 // instance method Array#push
 // push(*obj) -> self
+// TODO Return argument #1 is self array.
 func (a *Array) Push(obj interface{}) error {
 	switch v := obj.(type) {
 	case int:
@@ -57,13 +58,14 @@ func (a *Array) Push(obj interface{}) error {
 	case string:
 		a.StrVals = append(a.StrVals, v)
 	default:
-		return fmt.Errorf("Invalid type: %T", obj)
+		return fmt.Errorf("invalid type: %T", obj)
 	}
 	return nil
 }
 
 // instance method Array#unshift
 // unshift(*obj) -> self
+// TODO Return argument #1 is self array.
 func (a *Array) Unshift(obj interface{}) error {
 	switch v := obj.(type) {
 	case int:
@@ -71,15 +73,15 @@ func (a *Array) Unshift(obj interface{}) error {
 	case string:
 		a.StrVals = append(StrArray{v}, a.StrVals...)
 	default:
-		return fmt.Errorf("Invalid type: %T", obj)
+		return fmt.Errorf("invalid type: %T", obj)
 	}
 	return nil
 }
 
 // instance method Array#delete
 // delete(val) { ... } -> object
-func (a *Array) Delete(val interface{}) (interface{}, error) {
-	switch v := val.(type) {
+func (a *Array) Delete(obj interface{}) (interface{}, error) {
+	switch v := obj.(type) {
 	case int:
 		for i, n := range a.IntVals {
 			if n == v {
@@ -95,7 +97,7 @@ func (a *Array) Delete(val interface{}) (interface{}, error) {
 			}
 		}
 	}
-	return nil, fmt.Errorf("Value not found")
+	return nil, fmt.Errorf("invalid type: %T", obj)
 }
 
 // instance method Array#uniq
@@ -123,20 +125,23 @@ func (a *Array) Uniq() {
 // Only works for IntArray
 // instance method Enumerable#sum
 // sum() -> object
-func (a *Array) Sum() int {
+func (a *Array) Sum() (interface{}, error) {
+	if len(a.IntVals) == 0 {
+		return nil, fmt.Errorf("cannot sum empty IntArray")
+	}
 	var sum int
 	for _, n := range a.IntVals {
 		sum += n
 	}
-	return sum
+	return sum, nil
 }
 
 // Only works for IntArray
 // instance method Enumerable#max
 // max() -> object
-func (a *Array) Max() (int, error) {
+func (a *Array) Max() (interface{}, error) {
 	if len(a.IntVals) == 0 {
-		return 0, fmt.Errorf("IntArray is empty")
+		return nil, fmt.Errorf("cannot max empty IntArray")
 	}
 	max := -int(^uint(0)>>1) - 1
 	for _, n := range a.IntVals {
@@ -150,9 +155,9 @@ func (a *Array) Max() (int, error) {
 // Only works for IntArray
 // instance method Enumerable#min
 // min() -> object
-func (a *Array) Min() (int, error) {
+func (a *Array) Min() (interface{}, error) {
 	if len(a.IntVals) == 0 {
-		return 0, fmt.Errorf("IntArray is empty")
+		return nil, fmt.Errorf("cannot min empty IntArray")
 	}
 	min := int(^uint(0) >> 1)
 	for _, n := range a.IntVals {

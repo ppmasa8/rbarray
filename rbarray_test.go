@@ -12,37 +12,41 @@ func TestArray_Pop(t *testing.T) {
 		array    Array
 		obj      interface{}
 		expected interface{}
+		err      error
 	}{
 		{
 			name:     "Pop int from IntVals",
 			array:    Array{IntVals: IntArray{1, 2, 3}},
 			obj:      3,
 			expected: Array{IntVals: IntArray{1, 2}},
+			err:      nil,
 		},
 		{
 			name:     "Pop string from StrVals",
 			array:    Array{StrVals: StrArray{"foo", "bar", "baz"}},
 			obj:      "baz",
 			expected: Array{StrVals: StrArray{"foo", "bar"}},
+			err:      nil,
 		},
 		{
 			name:     "Empty array",
 			array:    Array{},
 			obj:      nil,
 			expected: Array{},
+			err:      errors.New("Array is empty"),
 		},
 	}
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			got, _ := test.array.Pop()
-			// if err != nil {
-			// 	t.Errorf("%v", err)
-			// }
+			got, err := test.array.Pop()
 			if !reflect.DeepEqual(got, test.obj) {
 				t.Errorf("Expected %v but got %v", test.obj, got)
 			}
 			if !reflect.DeepEqual(test.array, test.expected) {
 				t.Errorf("Expected %v but got %v", test.expected, test.array)
+			}
+			if err != nil && err.Error() != test.err.Error() {
+				t.Errorf("Expected %v but got %v", test.err, err)
 			}
 		})
 	}
@@ -54,37 +58,41 @@ func TestArray_Shift(t *testing.T) {
 		array    Array
 		obj      interface{}
 		expected interface{}
+		err      error
 	}{
 		{
 			name:     "Shift int from IntVals",
 			array:    Array{IntVals: IntArray{1, 2, 3}},
 			obj:      1,
 			expected: Array{IntVals: IntArray{2, 3}},
+			err:      nil,
 		},
 		{
 			name:     "Shift string from StrVals",
 			array:    Array{StrVals: StrArray{"foo", "bar", "baz"}},
 			obj:      "foo",
 			expected: Array{StrVals: StrArray{"bar", "baz"}},
+			err:      nil,
 		},
 		{
 			name:     "Empty array",
 			array:    Array{},
 			obj:      nil,
 			expected: Array{},
+			err:      errors.New("Array is empty"),
 		},
 	}
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			got, _ := test.array.Shift()
-			// if err != nil {
-			// 	t.Errorf("%v", err)
-			// }
+			got, err := test.array.Shift()
 			if !reflect.DeepEqual(got, test.obj) {
 				t.Errorf("Expected %v but got %v", test.obj, got)
 			}
 			if !reflect.DeepEqual(test.array, test.expected) {
 				t.Errorf("Expected %v but got %v", test.expected, test.array)
+			}
+			if err != nil && err.Error() != test.err.Error() {
+				t.Errorf("Expected %v but got %v", test.err, err)
 			}
 		})
 	}
@@ -96,31 +104,38 @@ func TestArray_Push(t *testing.T) {
 		array    Array
 		obj      interface{}
 		expected interface{}
+		err      error
 	}{
 		{
 			name:     "Push int to IntVals",
 			array:    Array{IntVals: IntArray{1, 2, 3}},
 			obj:      4,
 			expected: Array{IntVals: IntArray{1, 2, 3, 4}},
+			err:      nil,
 		},
 		{
 			name:     "Push string to StrVals",
 			array:    Array{StrVals: StrArray{"foo", "bar", "baz"}},
 			obj:      "qux",
 			expected: Array{StrVals: StrArray{"foo", "bar", "baz", "qux"}},
+			err:      nil,
 		},
 		{
 			name:     "Push invalid type",
 			array:    Array{},
 			obj:      4.0,
 			expected: Array{},
+			err:      errors.New("invalid type: float64"),
 		},
 	}
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			test.array.Push(test.obj)
+			err := test.array.Push(test.obj)
 			if !reflect.DeepEqual(test.array, test.expected) {
 				t.Errorf("Expected %v but got %v", test.expected, test.array)
+			}
+			if err != nil && err.Error() != test.err.Error() {
+				t.Errorf("Expected %v but got %v", test.err, err)
 			}
 		})
 	}
@@ -132,31 +147,38 @@ func TestArray_Unshift(t *testing.T) {
 		array    Array
 		obj      interface{}
 		expected interface{}
+		err      error
 	}{
 		{
-			name:     "Push int to IntVals",
+			name:     "Unshift int to IntVals",
 			array:    Array{IntVals: IntArray{1, 2, 3}},
 			obj:      4,
-			expected: Array{IntVals: IntArray{1, 2, 3, 4}},
+			expected: Array{IntVals: IntArray{4, 1, 2, 3}},
+			err:      nil,
 		},
 		{
-			name:     "Push string to StrVals",
+			name:     "Unshift string to StrVals",
 			array:    Array{StrVals: StrArray{"foo", "bar", "baz"}},
 			obj:      "qux",
-			expected: Array{StrVals: StrArray{"foo", "bar", "baz", "qux"}},
+			expected: Array{StrVals: StrArray{"qux", "foo", "bar", "baz"}},
+			err:      nil,
 		},
 		{
-			name:     "Push invalid type",
+			name:     "Unshift invalid type",
 			array:    Array{},
 			obj:      4.0,
 			expected: Array{},
+			err:      errors.New("invalid type: float64"),
 		},
 	}
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			test.array.Push(test.obj)
+			err := test.array.Unshift(test.obj)
 			if !reflect.DeepEqual(test.array, test.expected) {
 				t.Errorf("Expected %v but got %v", test.expected, test.array)
+			}
+			if err != nil && err.Error() != test.err.Error() {
+				t.Errorf("Expected %v but got %v", test.err, err)
 			}
 		})
 	}
@@ -168,31 +190,38 @@ func TestArray_Delete(t *testing.T) {
 		array    Array
 		obj      interface{}
 		expected interface{}
+		err      error
 	}{
 		{
 			name:     "Delete int from IntVals",
 			array:    Array{IntVals: IntArray{1, 2, 3}},
 			obj:      2,
 			expected: Array{IntVals: IntArray{1, 3}},
+			err:      nil,
 		},
 		{
 			name:     "Delete string from StrVals",
 			array:    Array{StrVals: StrArray{"foo", "bar", "baz"}},
 			obj:      "bar",
 			expected: Array{StrVals: StrArray{"foo", "baz"}},
+			err:      nil,
 		},
 		{
 			name:     "Delete invalid type",
 			array:    Array{},
 			obj:      4.0,
 			expected: Array{},
+			err:      errors.New("invalid type: float64"),
 		},
 	}
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			test.array.Delete(test.obj)
+			_, err := test.array.Delete(test.obj)
 			if !reflect.DeepEqual(test.array, test.expected) {
 				t.Errorf("Expected %v but got %v", test.expected, test.array)
+			}
+			if err != nil && err.Error() != test.err.Error() {
+				t.Errorf("Expected %v but got %v", test.err, err)
 			}
 		})
 	}
@@ -234,29 +263,36 @@ func TestArray_Sum(t *testing.T) {
 	tests := []struct {
 		name     string
 		array    Array
-		expected int
+		expected interface{}
+		err      error
 	}{
 		{
 			name:     "Sum int from IntVals",
 			array:    Array{IntVals: IntArray{1, 2, 3, 3, 4, 5, 5}},
 			expected: 23,
+			err:      nil,
 		},
 		{
 			name:     "Sum empty int from IntVals",
 			array:    Array{},
-			expected: 0,
+			expected: nil,
+			err:      errors.New("cannot sum empty IntArray"),
 		},
 		{
 			name:     "Sum string from StrVals",
 			array:    Array{StrVals: StrArray{"foo", "bar", "baz", "baz", "qux", "qux"}},
-			expected: 0,
+			expected: nil,
+			err:      errors.New("cannot sum empty IntArray"),
 		},
 	}
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			sum := test.array.Sum()
+			sum, err := test.array.Sum()
 			if sum != test.expected {
 				t.Errorf("Expected %v but got %v", test.expected, sum)
+			}
+			if err != nil && err.Error() != test.err.Error() {
+				t.Errorf("Expected %v but got %v", test.err, err)
 			}
 		})
 	}
@@ -266,7 +302,7 @@ func TestArray_Max(t *testing.T) {
 	tests := []struct {
 		name     string
 		array    Array
-		expected int
+		expected interface{}
 		err      error
 	}{
 		{
@@ -278,14 +314,14 @@ func TestArray_Max(t *testing.T) {
 		{
 			name:     "Max empty int from IntVals",
 			array:    Array{},
-			expected: 0,
-			err:      errors.New("IntArray is empty"),
+			expected: nil,
+			err:      errors.New("cannot max empty IntArray"),
 		},
 		{
 			name:     "Max string from StrVals",
 			array:    Array{StrVals: StrArray{"foo", "bar", "baz", "baz", "qux", "qux"}},
-			expected: 0,
-			err:      errors.New("IntArray is empty"),
+			expected: nil,
+			err:      errors.New("cannot max empty IntArray"),
 		},
 	}
 	for _, test := range tests {
@@ -305,29 +341,36 @@ func TestArray_Min(t *testing.T) {
 	tests := []struct {
 		name     string
 		array    Array
-		expected int
+		expected interface{}
+		err      error
 	}{
 		{
 			name:     "Min int from IntVals",
 			array:    Array{IntVals: IntArray{1, 2, 3, 3, 4, 5, 5}},
 			expected: 1,
+			err:      nil,
 		},
 		{
 			name:     "Min empty int from IntVals",
 			array:    Array{},
-			expected: 0,
+			expected: nil,
+			err:      errors.New("cannot min empty IntArray"),
 		},
 		{
 			name:     "Min string from StrVals",
 			array:    Array{StrVals: StrArray{"foo", "bar", "baz", "baz", "qux", "qux"}},
-			expected: 0,
+			expected: nil,
+			err:      errors.New("cannot min empty IntArray"),
 		},
 	}
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			min, _ := test.array.Min()
+			min, err := test.array.Min()
 			if min != test.expected {
 				t.Errorf("Expected %v but got %v", test.expected, min)
+			}
+			if err != nil && err.Error() != test.err.Error() {
+				t.Errorf("Expected %v but got %v", test.err, err)
 			}
 		})
 	}
