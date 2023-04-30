@@ -138,7 +138,7 @@ func (a *Array) Max() (int, error) {
 	if len(a.IntVals) == 0 {
 		return 0, fmt.Errorf("IntArray is empty")
 	}
-	max := -int(^uint(0) >> 1) - 1
+	max := -int(^uint(0)>>1) - 1
 	for _, n := range a.IntVals {
 		if n > max {
 			max = n

@@ -267,25 +267,25 @@ func TestArray_Max(t *testing.T) {
 		name     string
 		array    Array
 		expected int
-		err error
+		err      error
 	}{
 		{
 			name:     "Max int from IntVals",
 			array:    Array{IntVals: IntArray{1, 2, 3, 3, 4, 5, 5}},
 			expected: 5,
-			err: nil,
+			err:      nil,
 		},
 		{
 			name:     "Max empty int from IntVals",
 			array:    Array{},
 			expected: 0,
-			err: errors.New("IntArray is empty"),
+			err:      errors.New("IntArray is empty"),
 		},
 		{
 			name:     "Max string from StrVals",
 			array:    Array{StrVals: StrArray{"foo", "bar", "baz", "baz", "qux", "qux"}},
 			expected: 0,
-			err: errors.New("IntArray is empty"),
+			err:      errors.New("IntArray is empty"),
 		},
 	}
 	for _, test := range tests {
