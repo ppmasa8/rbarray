@@ -168,13 +168,7 @@ func (a *Array) Min() (interface{}, error) {
 }
 
 // instance method Array#size
-// size -> Integer
-func (a *Array) Size() (int, string) {
-	if len(a.IntVals) == 0 {
-		return len(a.StrVals), "StrArray size"
-	}
-	if len(a.StrVals) == 0 {
-		return len(a.IntVals), "IntArray size"
-	}
-	return 0, "Array size"
+// size -> Integer(for int) / Integer(for string)
+func (a *Array) Size() (int, int) {
+	return len(a.IntVals), len(a.StrVals)
 }
