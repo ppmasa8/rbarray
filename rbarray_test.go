@@ -387,38 +387,38 @@ func TestArray_Min(t *testing.T) {
 
 func TestArray_Size(t *testing.T) {
 	tests := []struct {
-		name      string
-		array     Array
-		expected1 int
-		expected2 int
+		name            string
+		array           Array
+		expectedIntSize int
+		expectedStrSize int
 	}{
 		{
-			name:      "Size int from IntVals",
-			array:     Array{IntVals: IntArray{1, 2, 3, 3, 4, 5, 5}},
-			expected1: 7,
-			expected2: 0,
+			name:            "IntVals with duplicates",
+			array:           Array{IntVals: IntArray{1, 2, 3, 3, 4, 5, 5}},
+			expectedIntSize: 7,
+			expectedStrSize: 0,
 		},
 		{
-			name:      "Size empty int from IntVals",
-			array:     Array{},
-			expected1: 0,
-			expected2: 0,
+			name:            "Empty Array",
+			array:           Array{},
+			expectedIntSize: 0,
+			expectedStrSize: 0,
 		},
 		{
-			name:      "Size string from StrVals",
-			array:     Array{StrVals: StrArray{"foo", "bar", "baz", "baz", "qux", "qux"}},
-			expected1: 6,
-			expected2: 0,
+			name:            "StrVals with duplicates",
+			array:           Array{StrVals: StrArray{"foo", "bar", "baz", "baz", "qux", "qux"}},
+			expectedIntSize: 0,
+			expectedStrSize: 6,
 		},
 	}
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
 			intSize, strSize := test.array.Size()
-			if intSize != test.expected1 {
-				t.Errorf("Expected %v but got %v", test.expected1, intSize)
+			if intSize != test.expectedIntSize {
+				t.Errorf("For test %q, expected int size %d but got %d", test.name, test.expectedIntSize, intSize)
 			}
-			if strSize != test.expected2 {
-				t.Errorf("Expected %v but got %v", test.expected2, strSize)
+			if strSize != test.expectedStrSize {
+				t.Errorf("For test %q, expected str size %d but got %d", test.name, test.expectedStrSize, strSize)
 			}
 		})
 	}
