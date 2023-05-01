@@ -384,3 +384,35 @@ func TestArray_Min(t *testing.T) {
 		})
 	}
 }
+
+func TestArray_Size(t *testing.T) {
+	tests := []struct {
+		name     string
+		array    Array
+		expected int
+	}{
+		{
+			name:     "Size int from IntVals",
+			array:    Array{IntVals: IntArray{1, 2, 3, 3, 4, 5, 5}},
+			expected: 7,
+		},
+		{
+			name:     "Size empty int from IntVals",
+			array:    Array{},
+			expected: 0,
+		},
+		{
+			name:     "Size string from StrVals",
+			array:    Array{StrVals: StrArray{"foo", "bar", "baz", "baz", "qux", "qux"}},
+			expected: 6,
+		},
+	}
+		for _, test := range tests {
+			t.Run(test.name, func(t *testing.T) {
+				size, _ := test.array.Size()
+				if size != test.expected {
+					t.Errorf("Expected %v but got %v", test.expected, size)
+				}
+			})
+		}
+}
