@@ -423,3 +423,50 @@ func TestArray_Size(t *testing.T) {
 		})
 	}
 }
+
+func TestArray_Include(t *testing.T) {
+	tests := []struct {
+		name     string
+		array    Array
+		obj      interface{}
+		expected bool
+	}{
+		{
+			name:     "IntVals with duplicates",
+			array:    Array{IntVals: IntArray{1, 2, 3, 3, 4, 5, 5}},
+			obj:      3,
+			expected: true,
+		},
+		{
+			name:     "IntVals with duplicates",
+			array:    Array{IntVals: IntArray{1, 2, 3, 3, 4, 5, 5}},
+			obj:      6,
+			expected: false,
+		},
+		{
+			name:     "StrVals with duplicates",
+			array:    Array{StrVals: StrArray{"foo", "bar", "baz", "baz", "qux", "qux"}},
+			obj:      "baz",
+			expected: true,
+		},
+		{
+			name:     "StrVals with duplicates",
+			array:    Array{StrVals: StrArray{"foo", "bar", "baz", "baz", "qux", "qux"}},
+			obj:      "quux",
+			expected: false,
+		},
+		{
+			name:     "Empty Array",
+			array:    Array{},
+			obj:      "quux",
+			expected: false,
+		},
+	}
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			if test.array.Include(test.obj) != test.expected {
+				t.Errorf("Expected %v but got %v", test.expected, test.array.Include(test.obj))
+			}
+		})
+	}
+}

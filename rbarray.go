@@ -172,3 +172,23 @@ func (a *Array) Min() (interface{}, error) {
 func (a *Array) Size() (int, int) {
 	return len(a.IntVals), len(a.StrVals)
 }
+
+// instance method Array#include
+// include(val) -> bool
+func (a *Array) Include(obj interface{}) bool {
+	switch v := obj.(type) {
+	case int:
+		for _, n := range a.IntVals {
+			if n == v {
+				return true
+			}
+		}
+	case string:
+		for _, s := range a.StrVals {
+			if s == v {
+				return true
+			}
+		}
+	}
+	return false
+}
