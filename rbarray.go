@@ -192,3 +192,27 @@ func (a *Array) Include(obj interface{}) bool {
 	}
 	return false
 }
+
+// instance method Array#first
+// first -> object
+func (a *Array) First() interface{} {
+	if len(a.IntVals) > 0 {
+		return a.IntVals[0]
+	}
+	if len(a.StrVals) > 0 {
+		return a.StrVals[0]
+	}
+	return nil
+}
+
+// instance method Array#last
+// last -> object
+func (a *Array) Last() interface{} {
+	if len(a.IntVals) > 0 {
+		return a.IntVals[len(a.IntVals)-1]
+	}
+	if len(a.StrVals) > 0 {
+		return a.StrVals[len(a.StrVals)-1]
+	}
+	return nil
+}

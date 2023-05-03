@@ -470,3 +470,65 @@ func TestArray_Include(t *testing.T) {
 		})
 	}
 }
+
+func TestArray_First(t *testing.T) {
+	tests := []struct {
+		name     string
+		array    Array
+		expected interface{}
+	}{
+		{
+			name:     "IntVals with duplicates",
+			array:    Array{IntVals: IntArray{1, 2, 3, 3, 4, 5, 5}},
+			expected: 1,
+		},
+		{
+			name:     "StrVals with duplicates",
+			array:    Array{StrVals: StrArray{"foo", "bar", "baz", "baz", "qux", "qux"}},
+			expected: "foo",
+		},
+		{
+			name:     "Empty Array",
+			array:    Array{},
+			expected: nil,
+		},
+	}
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			if test.array.First() != test.expected {
+				t.Errorf("Expected %v but got %v", test.expected, test.array.First())
+			}
+		})
+	}
+}
+
+func TestArray_Last(t *testing.T) {
+	tests := []struct {
+		name     string
+		array    Array
+		expected interface{}
+	}{
+		{
+			name:     "IntVals with duplicates",
+			array:    Array{IntVals: IntArray{1, 2, 3, 3, 4, 5, 5}},
+			expected: 5,
+		},
+		{
+			name:     "StrVals with duplicates",
+			array:    Array{StrVals: StrArray{"foo", "bar", "baz", "baz", "qux", "qux"}},
+			expected: "qux",
+		},
+		{
+			name:     "Empty Array",
+			array:    Array{},
+			expected: nil,
+		},
+	}
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			if test.array.Last() != test.expected {
+				t.Errorf("Expected %v but got %v", test.expected, test.array.Last())
+			}
+		})
+	}
+}
