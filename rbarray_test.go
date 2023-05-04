@@ -532,3 +532,29 @@ func TestArray_Last(t *testing.T) {
 		})
 	}
 }
+
+func TestArray_Empty(t *testing.T) {
+	tests := []struct{
+		name string
+		array Array
+		expected bool
+	}{
+		{
+			name: "Empty Array",
+			array: Array{},
+			expected: true,
+		},
+		{
+			name: "Non-empty Array",
+			array: Array{IntVals: IntArray{1, 2, 3, 3, 4, 5, 5}},
+			expected: false,
+		},
+	}
+	for _, tests := range tests {
+		t.Run(tests.name, func(t *testing.T) {
+			if tests.array.Empty() != tests.expected {
+				t.Errorf("Expected %v but got %v", tests.expected, tests.array.Empty())
+			}
+		})
+	}
+}

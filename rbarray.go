@@ -216,3 +216,9 @@ func (a *Array) Last() interface{} {
 	}
 	return nil
 }
+
+// instance method Array#empty
+// empty -> bool
+func (a *Array) Empty() bool {
+	return len(a.IntVals) == 0 && len(a.StrVals) == 0
+}
