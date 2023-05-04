@@ -534,26 +534,61 @@ func TestArray_Last(t *testing.T) {
 }
 
 func TestArray_Empty(t *testing.T) {
-	tests := []struct{
-		name string
-		array Array
+	tests := []struct {
+		name     string
+		array    Array
 		expected bool
 	}{
 		{
-			name: "Empty Array",
-			array: Array{},
+			name:     "Empty Array",
+			array:    Array{},
 			expected: true,
 		},
 		{
-			name: "Non-empty Array",
-			array: Array{IntVals: IntArray{1, 2, 3, 3, 4, 5, 5}},
+			name:     "Non-empty Array",
+			array:    Array{IntVals: IntArray{1, 2, 3, 3, 4, 5, 5}},
 			expected: false,
 		},
 	}
-	for _, tests := range tests {
-		t.Run(tests.name, func(t *testing.T) {
-			if tests.array.Empty() != tests.expected {
-				t.Errorf("Expected %v but got %v", tests.expected, tests.array.Empty())
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			if test.array.Empty() != test.expected {
+				t.Errorf("Expected %v but got %v", test.expected, test.array.Empty())
+			}
+		})
+	}
+}
+
+func TestArray_Reverse(t *testing.T) {
+	tests := []struct {
+		name     string
+		array    Array
+		expected Array
+	}{
+		{
+			name:     "Reverse int from IntVals",
+			array:    Array{IntVals: IntArray{1, 2, 3, 3, 4, 5, 5}},
+			expected: Array{IntVals: IntArray{5, 5, 4, 3, 3, 2, 1}},
+		},
+		{
+			name:     "Reverse string from StrVals",
+			array:    Array{StrVals: StrArray{"foo", "bar", "baz", "baz", "qux", "qux"}},
+			expected: Array{StrVals: StrArray{"qux", "qux", "baz", "baz", "bar", "foo"}},
+		},
+		{
+			name:     "Uniq invalid type",
+			array:    Array{},
+			expected: Array{},
+		},
+	}
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			got := test.array.Reverse()
+			if !reflect.DeepEqual(test.array, test.expected) {
+				t.Errorf("Expected %v but got %v", test.expected, test.array)
+			}
+			if !reflect.DeepEqual(got, test.expected) {
+				t.Errorf("Expected %v but got %v", test.expected, got)
 			}
 		})
 	}

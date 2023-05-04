@@ -222,3 +222,19 @@ func (a *Array) Last() interface{} {
 func (a *Array) Empty() bool {
 	return len(a.IntVals) == 0 && len(a.StrVals) == 0
 }
+
+// instance method Array#reverse
+// reverse -> Array
+func (a *Array) Reverse() interface{} {
+	var reverseInts IntArray
+	var reverseStrs StrArray
+	for i := len(a.IntVals) - 1; i >= 0; i-- {
+		reverseInts = append(reverseInts, a.IntVals[i])
+	}
+	for i := len(a.StrVals) - 1; i >= 0; i-- {
+		reverseStrs = append(reverseStrs, a.StrVals[i])
+	}
+	a.IntVals = reverseInts
+	a.StrVals = reverseStrs
+	return *a
+}
