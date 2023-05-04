@@ -36,12 +36,10 @@ import (
 )
 
 func main() {
-        fmt.Println("Hello, 世界")
         array := rbarray.Array{IntVals: rbarray.IntArray{1, 3, 5}}
         fmt.Println(array.Pop())
 
 // output
-// Hello, 世界
 // 5
 }
 ```
