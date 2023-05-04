@@ -3,7 +3,7 @@ It can handle arrays like ruby.
 
 # Install
 ```zsh
-$ go install github.com/ppmasa8/rbarr@v0.2.0
+$ go install github.com/ppmasa8/rbarr@v1.0.0
 ```
 
 # Usage
